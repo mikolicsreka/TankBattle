@@ -11,7 +11,7 @@ void UTankBarrel::Elevate(float RelativeSpeed)
 
 	auto ElevationChange = RelativeSpeed * MaxDegreesPerSecond * GetWorld()->DeltaTimeSeconds;
 
-	UE_LOG(LogTemp, Warning, TEXT("location: %f"), USceneComponent::GetRelativeRotation().Pitch);
+	
 
 	auto RawNewElevation = USceneComponent::GetRelativeRotation().Pitch + ElevationChange;
 	auto Elevation = FMath::Clamp<float>(RawNewElevation, MinElevationDegrees, MaxElevationDegrees);

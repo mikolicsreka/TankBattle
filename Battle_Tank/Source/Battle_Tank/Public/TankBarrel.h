@@ -9,7 +9,7 @@
 /**
  * 
  */
-UCLASS(meta=(BlueprintSpawnableComponent),hideCategories = Collision) //A uclassnak több paramétere is lehet, pl. hideCategories = Collision
+UCLASS(meta=(BlueprintSpawnableComponent)) //A uclassnak több paramétere is lehet, pl. hideCategories = Collision
 class BATTLE_TANK_API UTankBarrel : public UStaticMeshComponent
 {
 	GENERATED_BODY()

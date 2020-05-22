@@ -12,6 +12,7 @@ void ATankPlayerController::BeginPlay()
 	auto ControlledTank = GetControlledTank();
 	if (!ControlledTank)
 	{
+		
 		UE_LOG(LogTemp, Warning, TEXT("Tank object missing!"));
 	}
 	else
