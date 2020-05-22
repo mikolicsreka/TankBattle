@@ -9,7 +9,7 @@
 /**
  * 
  */
-UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent),hideCategories = Collision) //A uclassnak több paramétere is lehet, pl. hideCategories = Collision
+UCLASS(meta=(BlueprintSpawnableComponent),hideCategories = Collision) //A uclassnak több paramétere is lehet, pl. hideCategories = Collision
 class BATTLE_TANK_API UTankBarrel : public UStaticMeshComponent
 {
 	GENERATED_BODY()
@@ -25,6 +25,6 @@ private:
 	UPROPERTY(EditAnywhere, Category = Setup)
 	float MinElevationDegrees = 0;
 	UPROPERTY(EditAnywhere, Category = Setup)
-	float MaxElevationDegrees = 20;
+	float MaxElevationDegrees = 40;
 	
 };

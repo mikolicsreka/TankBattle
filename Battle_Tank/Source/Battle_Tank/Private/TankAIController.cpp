@@ -5,7 +5,7 @@
 #include "Engine.h"
 #include "AIController.h"
 #include "TankAIController.h"
-
+#include "Battle_Tank/Tank.h"
 
 void ATankAIController::BeginPlay()
 {
