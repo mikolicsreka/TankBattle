@@ -10,6 +10,7 @@
 class UTankBarrel; //Forward Declaration
 class UTankAimingComponent;
 class UTankTurret;
+class AProjectile;
 
 UCLASS()
 class BATTLE_TANK_API ATank : public APawn
@@ -41,7 +42,20 @@ private:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
-	UPROPERTY(EditAnywhere, Category = Firing)
-	float LaunchSpeed = 10000; //Sensible starting value, 1000m/s
+	UPROPERTY(EditDefaultsOnly, Category = Firing) //EditDefaultsOnly: csak a blueprintbõl editelhetõ => az összes tankra egyszerre, nem lehet mindegyiknek más
+	float ReloadTimeInSeconds = 3.f;
 
+	UPROPERTY(EditDefaultsOnly, Category = Firing)
+	float LaunchSpeed = 4000; //Sensible starting value, 1000m/s
+
+	UPROPERTY(EditDefaultsOnly, Category = Setup)
+	TSubclassOf<AProjectile> ProjectileBlueprint; //alternative: tsubclass https://docs.unrealengine.com/en-US/Programming/UnrealArchitecture/TSubclassOf/index.html
+
+
+
+	//Local barrel reference for spawning projectile
+	UTankBarrel* Barrel = nullptr;
+
+
+	double LastFireTime = 0.0;
 };

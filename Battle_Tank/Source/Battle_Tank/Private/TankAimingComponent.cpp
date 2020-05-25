@@ -26,6 +26,7 @@ void UTankAimingComponent::AimAt(FVector HitLocation, float LaunchSpeed)
 
 	FVector OutLaunchVelocity;
 	FVector StartLocation = Barrel->GetSocketLocation(FName("Projectile"));
+	//Calculate the OutLaunchVelocity
 	bool bHaveAimSolution = UGameplayStatics::SuggestProjectileVelocity(  //kiszámolja a forgatási szöget
 		this,
 		OutLaunchVelocity,
@@ -46,14 +47,10 @@ void UTankAimingComponent::AimAt(FVector HitLocation, float LaunchSpeed)
 		auto Time = GetWorld()->GetTimeSeconds();
 
 	}
-	else
-	{
-		auto Time = GetWorld()->GetTimeSeconds();
-
-	}
+	//if no solution do nothing
 	
 	
-	//Calculate the OutLaunchVelocity
+	
 
 
 
@@ -88,7 +85,15 @@ void UTankAimingComponent::MoveBarrelTowards(FVector AimDirection)
 
 	//Mozgatjuk a barrelt
 	Barrel->Elevate(DeltaRotator.Pitch);
-	Turret->Rotate(DeltaRotator.Yaw);
+
+	if (FMath::Abs(DeltaRotator.Yaw) < 180)
+	{
+		Turret->Rotate(DeltaRotator.Yaw);
+	}
+	else // Avoid going the long-way round
+	{
+		Turret->Rotate(-DeltaRotator.Yaw);
+	}
 	//Given a max elevation speed, and the frame time
 }
 
