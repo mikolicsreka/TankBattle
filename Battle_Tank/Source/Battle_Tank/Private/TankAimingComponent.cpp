@@ -56,26 +56,24 @@ void UTankAimingComponent::AimAt(FVector HitLocation, float LaunchSpeed)
 
 }
 
-void UTankAimingComponent::SetBarrelReference(UTankBarrel* BarrelToSet)
+void UTankAimingComponent::Initialize(UTankBarrel* BarrelToSet, UTankTurret* TurretToSet)
 {
-	if (!BarrelToSet)
+	if (!BarrelToSet || !TurretToSet)
 	{
 		return;
 	}
 	Barrel = BarrelToSet;
-}
-
-void UTankAimingComponent::SetTurretReference(UTankTurret* TurretToSet)
-{
-	if (!TurretToSet)
-	{
-		return;
-	}
 	Turret = TurretToSet;
 }
 
+
 void UTankAimingComponent::MoveBarrelTowards(FVector AimDirection)
 {
+	if (!Barrel || !Turret)
+	{
+		return;
+	}
+
 	//Kikell számolni a különbséget a mostani rotation és AimDirection között
 	auto BarrelRotator = Barrel->GetForwardVector().Rotation(); 
 	auto AimAsRotator = AimDirection.Rotation();
