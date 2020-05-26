@@ -17,7 +17,7 @@ void UTankMovementComponent::IntendTurnRight(float Throttle)
 	{
 		return;
 	}
-	UE_LOG(LogTemp, Warning, TEXT("turn right"));
+
 	LeftTrack->SetThrottle(-Throttle);
 	RightTrack->SetThrottle(Throttle);
 }
@@ -32,6 +32,11 @@ void UTankMovementComponent::RequestDirectMove(const FVector& MoveVelocity, bool
 
 	auto ForwardThrow = FVector::DotProduct(TankForward, AIForwardIntention);
 	IntendMoveForward(ForwardThrow);
+
+	auto RightThrow = FVector::CrossProduct(TankForward, AIForwardIntention).Z; //skaláris szorzat i guess
+	IntendTurnRight(RightThrow);
+
+	UE_LOG(LogTemp, Warning, TEXT("%f forward, %f right"), ForwardThrow, RightThrow);
 }
 
 void UTankMovementComponent::IntendMoveForward(float Throttle)
