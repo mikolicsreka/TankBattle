@@ -3,6 +3,7 @@
 #include "Engine/World.h"
 #include "Tank.h"
 #include "TankPlayerController.h"
+#include "Public/TankAimingComponent.h"
 
 #define OUT
 
@@ -21,7 +22,16 @@ void ATankPlayerController::BeginPlay()
 	}
 	
 	
-
+	auto AimingComponent = GetControlledTank()->FindComponentByClass<UTankAimingComponent>();
+	if (AimingComponent)
+	{
+		FoundAimingComponent(AimingComponent);
+	}
+	else
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Aiming component is missing!"));
+	}
+		
 
 }
 

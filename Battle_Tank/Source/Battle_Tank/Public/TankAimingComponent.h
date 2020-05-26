@@ -2,6 +2,9 @@
 
 #pragma once
 
+/*
+Responsible for the player aim.
+*/
 
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
@@ -43,9 +46,6 @@ private:
 	UTankBarrel* Barrel = nullptr;
 
 	UTankTurret* Turret = nullptr;
-
-	
-
 
 	void MoveBarrelTowards(FVector AimDirection);
 

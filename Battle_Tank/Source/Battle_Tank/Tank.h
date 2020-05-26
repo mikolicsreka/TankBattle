@@ -3,6 +3,7 @@
 #pragma once
 
 
+
 #include "CoreMinimal.h"
 #include "GameFramework/Pawn.h"
 #include "Tank.generated.h"
@@ -24,6 +25,8 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Firing")
 	void Fire();
 
+
+
 protected:
 	UPROPERTY(BlueprintReadOnly)
 	UTankAimingComponent* TankAimingComponent = nullptr;
@@ -34,6 +37,8 @@ protected:
 private:
 	// Sets default values for this pawn's properties
 	ATank();
+
+	virtual void BeginPlay() override;
 
 	UPROPERTY(EditDefaultsOnly, Category = "Firing") //EditDefaultsOnly: csak a blueprintbõl editelhetõ => az összes tankra egyszerre, nem lehet mindegyiknek más
 	float ReloadTimeInSeconds = 3.f;

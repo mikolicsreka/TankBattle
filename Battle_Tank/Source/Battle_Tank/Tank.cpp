@@ -23,8 +23,17 @@ ATank::ATank()
 
 
 
+void ATank::BeginPlay()
+{
+	Super::BeginPlay();
+
+
+}
+
 void ATank::AimAt(FVector HitLocation)
 {
+	if (!TankAimingComponent) { return; } //meg kell védeni mivel már nem a konstruktorba adjuk hozzá
+
 	TankAimingComponent->AimAt(HitLocation, LaunchSpeed);
 
 }
