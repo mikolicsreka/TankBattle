@@ -13,7 +13,7 @@ void UTankMovementComponent::Initialize(UTankTrack* LeftTrackToSet, UTankTrack* 
 
 void UTankMovementComponent::IntendTurnRight(float Throttle)
 {
-	if (!ensure(LeftTrack && !RightTrack))
+	if (!ensure(LeftTrack && RightTrack))
 	{
 		return;
 	}
@@ -36,12 +36,12 @@ void UTankMovementComponent::RequestDirectMove(const FVector& MoveVelocity, bool
 	auto RightThrow = FVector::CrossProduct(TankForward, AIForwardIntention).Z; //skaláris szorzat i guess
 	IntendTurnRight(RightThrow);
 
-	UE_LOG(LogTemp, Warning, TEXT("%f forward, %f right"), ForwardThrow, RightThrow);
+
 }
 
 void UTankMovementComponent::IntendMoveForward(float Throttle)
 {
-	if (!ensure(LeftTrack&& !RightTrack))
+	if (!ensure(LeftTrack&& RightTrack))
 	{
 		return;
 	}

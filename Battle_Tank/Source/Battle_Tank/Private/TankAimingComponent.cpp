@@ -17,7 +17,7 @@ UTankAimingComponent::UTankAimingComponent()
 
 
 
-void UTankAimingComponent::AimAt(FVector HitLocation, float LaunchSpeed)
+void UTankAimingComponent::AimAt(FVector HitLocation)
 {
 	if (!ensure(Barrel)) //protect Barrel pointer
 	{
@@ -94,4 +94,3 @@ void UTankAimingComponent::MoveBarrelTowards(FVector AimDirection)
 	}
 	//Given a max elevation speed, and the frame time
 }
-

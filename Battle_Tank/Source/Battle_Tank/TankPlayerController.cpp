@@ -1,7 +1,6 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "Engine/World.h"
-#include "Tank.h"
 #include "TankPlayerController.h"
 #include "Public/TankAimingComponent.h"
 
@@ -10,8 +9,8 @@
 void ATankPlayerController::BeginPlay()
 {
 	Super::BeginPlay(); 
-	auto ControlledTank = GetControlledTank();
-	if (!ControlledTank)
+	auto ControlledTank = GetPawn();
+	if (!ensure(ControlledTank))
 	{
 		
 		UE_LOG(LogTemp, Warning, TEXT("Tank object missing!"));
@@ -22,8 +21,8 @@ void ATankPlayerController::BeginPlay()
 	}
 	
 	
-	auto AimingComponent = GetControlledTank()->FindComponentByClass<UTankAimingComponent>();
-	if (AimingComponent)
+	auto AimingComponent = GetPawn()->FindComponentByClass<UTankAimingComponent>();
+	if (ensure(AimingComponent))
 	{
 		FoundAimingComponent(AimingComponent);
 	}
@@ -47,7 +46,13 @@ void ATankPlayerController::Tick(float DeltaTime)
 
 void ATankPlayerController::AimTowardsCrossHair()
 {
-	if (!GetControlledTank())
+	if (!ensure(GetPawn()))
+	{
+		return;
+	}
+
+	auto AimingComponent = GetPawn()->FindComponentByClass<UTankAimingComponent>();
+	if (!ensure(AimingComponent))
 	{
 		return;
 	}
@@ -57,7 +62,7 @@ void ATankPlayerController::AimTowardsCrossHair()
 	if (GetSightRayHitLocation(HitLocation)) //Has side effect, is going to line trace
 	{
 		///Tell the controlled tank to aim at this point
-		GetControlledTank()->AimAt(HitLocation);
+		AimingComponent->AimAt(HitLocation);
 			
 
 	}
@@ -118,10 +123,6 @@ bool ATankPlayerController::GetLookVectorHitLocation(FVector LookDirection, FVec
 	
 }
 
-ATank* ATankPlayerController::GetControlledTank() const
-{
-	return Cast<ATank>(GetPawn());
-}
 
 bool ATankPlayerController::GetLookDirection(FVector2D ScreenLocation, FVector& LookDirection) const
 {
