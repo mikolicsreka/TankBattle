@@ -21,7 +21,7 @@ void ATankAIController::Tick(float DeltaTime)
 	auto ControlledTank = Cast<ATank>(GetPawn());
 
 
-	if (PlayerTank)
+	if (ensure(PlayerTank))
 	{
 		//Aim towards the player
 		MoveToActor(PlayerTank,

@@ -32,7 +32,7 @@ void ATank::BeginPlay()
 
 void ATank::AimAt(FVector HitLocation)
 {
-	if (!TankAimingComponent) { return; } //meg kell védeni mivel már nem a konstruktorba adjuk hozzá
+	if (!ensure(TankAimingComponent)) { return; } //meg kell védeni mivel már nem a konstruktorba adjuk hozzá
 
 	TankAimingComponent->AimAt(HitLocation, LaunchSpeed);
 
@@ -40,11 +40,14 @@ void ATank::AimAt(FVector HitLocation)
 
 void ATank::Fire()
 {
-
+	if (!ensure(Barrel))
+	{
+		return;
+	}
 	bool isReloaded = (FPlatformTime::Seconds() - LastFireTime) > ReloadTimeInSeconds;
 
 
-	if (Barrel && isReloaded)
+	if (isReloaded)
 	{
 		auto Projectile = GetWorld()->SpawnActor<AProjectile>(ProjectileBlueprint, Barrel->GetSocketLocation("Projectile"), Barrel->GetSocketRotation("Projectile"));
 		Projectile->LaunchProjectile(LaunchSpeed);
